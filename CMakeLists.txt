@@ -14,8 +14,11 @@ add_definitions(${GTKMM4_CFLAGS_OTHER})
 
 # Add my project to exe code
 add_executable(advanced-programmings-at3 main.cpp
-        user-interface/MainWindow.cpp
-        user-interface/MainWindow.h
+        views/MainWindow.cpp
+        views/MainWindow.h
+        routing/Router.cpp
+        routing/Router.h
+        routing/Route.h
 )
 
 # Then link GTKMM4 libraries
