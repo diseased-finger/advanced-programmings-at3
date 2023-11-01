@@ -19,6 +19,8 @@ add_executable(advanced-programmings-at3 main.cpp
         routing/Router.cpp
         routing/Router.h
         routing/Route.h
+        exceptions/NotFoundException.cpp
+        exceptions/NotFoundException.h
 )
 
 # Then link GTKMM4 libraries
