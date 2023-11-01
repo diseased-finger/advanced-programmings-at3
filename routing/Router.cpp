@@ -5,9 +5,10 @@
 #include "Router.h"
 #include "../exceptions/NotFoundException.h"
 
-Router::Router(Route **_routes, int _routeCount) :
+Router::Router(Route **_routes, int _routeCount, int _landingIndex) :
         routes(_routes),
-        routeCount(_routeCount) {}
+        routeCount(_routeCount) ,
+        landingIndex(_landingIndex) {}
 
 Route* Router::Resolve(const std::string &route) {
     for (int i = 0; i < routeCount; ++i) {

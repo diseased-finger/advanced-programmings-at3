@@ -2,16 +2,16 @@
 // Created by jedsaxon on 2/11/23.
 //
 
-#ifndef ADVANCED_PROGRAMMINGS_AT3_MAINWINDOW_H
-#define ADVANCED_PROGRAMMINGS_AT3_MAINWINDOW_H
+#ifndef ADVANCED_PROGRAMMINGS_AT3_PROGRAMWINDOW_H
+#define ADVANCED_PROGRAMMINGS_AT3_PROGRAMWINDOW_H
 
 #include <gtkmm/button.h>
 #include <gtkmm/window.h>
 #include <gtkmm/box.h>
 
-class MainWindow : public Gtk::Window {
+class ProgramWindow : public Gtk::Window {
 public:
-    MainWindow();
+    ProgramWindow();
 protected:
     // Widgets
     Gtk::Button button_w;
@@ -21,4 +21,4 @@ protected:
     void OnButtonClick_S();
 };
 
-#endif //ADVANCED_PROGRAMMINGS_AT3_MAINWINDOW_H
+#endif //ADVANCED_PROGRAMMINGS_AT3_PROGRAMWINDOW_H

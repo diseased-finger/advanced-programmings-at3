@@ -12,8 +12,9 @@ class Router {
 private:
     Route** routes;
     int routeCount;
+    int landingIndex;
 public:
-    explicit Router(Route** _routes, int _routeCount);
+    explicit Router(Route** _routes, int _routeCount, int _landingIndex = 0);
     Route* Resolve(const std::string& route);
 };
 
