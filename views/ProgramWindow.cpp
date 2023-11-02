@@ -3,23 +3,36 @@
 //
 
 #include "ProgramWindow.h"
+#include "MainView.h"
+#include "../exceptions/NotFoundException.h"
 #include <gtkmm.h>
 #include <iostream>
 
-ProgramWindow::ProgramWindow() :
-    button_w("Hello World"),
-    box_w()
-{
-    // Create button which runs OnButtonClick_S when clicked
-    button_w.signal_clicked().connect(sigc::mem_fun(*this, &ProgramWindow::OnButtonClick_S));
+ProgramWindow::ProgramWindow() {
+    // Initialise RouteManager
+    auto **routes = new Route *[1];
+    routes[0] = new Route("", new MainView());
+    router = new RouteManager(routes, 1, 0);
 
-    set_child(box_w);
-    box_w.append(button_w);
+//    set_child(box_w);
 
+    // Set Properties
     set_title("Advanced Programming - AT3");
     set_default_size(1000, 1000);
+
+    // Load Landing Page
+    Load("");
 }
 
-void ProgramWindow::OnButtonClick_S() {
-    std::cout << "Test" << std::endl;
+void ProgramWindow::Load(std::string routeName) {
+    // Get Route
+    Route* r = nullptr;
+    try {
+        r = router->Resolve(routeName);
+    } catch (std::exception e) {
+        printf("Route %s not found. Unable to load", routeName.c_str());
+    }
+
+    // Set Program's Child to Route's Widget
+    set_child(*r->widget);
 }

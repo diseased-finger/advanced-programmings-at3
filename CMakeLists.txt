@@ -16,8 +16,8 @@ add_definitions(${GTKMM4_CFLAGS_OTHER})
 add_executable(advanced-programmings-at3 main.cpp
         views/ProgramWindow.cpp
         views/ProgramWindow.h
-        routing/Router.cpp
-        routing/Router.h
+        routing/RouteManager.cpp
+        routing/RouteManager.h
         routing/Route.h
         exceptions/NotFoundException.cpp
         exceptions/NotFoundException.h

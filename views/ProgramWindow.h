@@ -8,17 +8,15 @@
 #include <gtkmm/button.h>
 #include <gtkmm/window.h>
 #include <gtkmm/box.h>
+#include "../routing/RouteManager.h"
 
 class ProgramWindow : public Gtk::Window {
 public:
-    ProgramWindow();
+    explicit ProgramWindow();
 protected:
-    // Widgets
-    Gtk::Button button_w;
-    Gtk::Box box_w;
+    RouteManager* router;
 
-    // Signals
-    void OnButtonClick_S();
+    void Load(std::string routeName);
 };
 
 #endif //ADVANCED_PROGRAMMINGS_AT3_PROGRAMWINDOW_H

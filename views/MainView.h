@@ -9,6 +9,8 @@
 #include <gtkmm/widget.h>
 
 class MainView : public Gtk::Widget {
+public:
+    MainView();
 
 };
 
