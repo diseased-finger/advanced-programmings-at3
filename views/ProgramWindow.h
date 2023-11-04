@@ -15,7 +15,6 @@ public:
     explicit ProgramWindow();
 protected:
     RouteManager* router;
-
     void Load(std::string routeName);
 };
 

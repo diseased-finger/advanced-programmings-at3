@@ -6,12 +6,14 @@
 #define ADVANCED_PROGRAMMINGS_AT3_MAINVIEW_H
 
 
-#include <gtkmm/widget.h>
+#include <gtkmm/box.h>
+#include <gtkmm/label.h>
 
-class MainView : public Gtk::Widget {
+class MainView : public Gtk::Box {
+private:
+    Gtk::Label w_label;
 public:
     MainView();
-
 };
 
 

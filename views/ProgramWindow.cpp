@@ -11,10 +11,10 @@
 ProgramWindow::ProgramWindow() {
     // Initialise RouteManager
     auto **routes = new Route *[1];
-    routes[0] = new Route("", new MainView());
-    router = new RouteManager(routes, 1, 0);
 
-//    set_child(box_w);
+    routes[0] = new Route("", new MainView());
+
+    router = new RouteManager(routes, 1, 0);
 
     // Set Properties
     set_title("Advanced Programming - AT3");
@@ -34,5 +34,6 @@ void ProgramWindow::Load(std::string routeName) {
     }
 
     // Set Program's Child to Route's Widget
+    printf("Changing Route to %s", routeName.c_str());
     set_child(*r->widget);
 }
