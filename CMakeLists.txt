@@ -21,6 +21,10 @@ add_executable(advanced-programmings-at3 main.cpp
         views/HomeView.h
         views/ConnectToServerView.cpp
         views/ConnectToServerView.h
+        views/ClientInterfaceView.cpp
+        views/ClientInterfaceView.h
+        views/ServerInterfaceView.cpp
+        views/ServerInterfaceView.h
 )
 
 # Then link GTKMM4 libraries

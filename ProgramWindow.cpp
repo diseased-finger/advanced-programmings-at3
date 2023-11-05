@@ -5,10 +5,12 @@
 #include "ProgramWindow.h"
 #include "views/HomeView.h"
 #include "views/ConnectToServerView.h"
+#include "views/ServerInterfaceView.h"
 
 ProgramWindow::ProgramWindow() {
     homeView = new HomeView(this);
     connectToServerBox = new ConnectToServerView(this);
+    serverInterfaceView = new ServerInterfaceView(this);
     RouteToHomeView();
 }
 
@@ -18,4 +20,12 @@ void ProgramWindow::RouteToHomeView() {
 
 void ProgramWindow::RouteToConnectToServerView() {
     set_child(*connectToServerBox);
+}
+
+void ProgramWindow::RouteToServerInterfaceView() {
+
+}
+
+void ProgramWindow::RouteToClientInterfaceView() {
+
 }
