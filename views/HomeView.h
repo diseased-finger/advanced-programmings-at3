@@ -18,8 +18,10 @@ private:
     Gtk::Label w_label;
     Gtk::Button w_connectToServerButton;
     Gtk::Button w_createServerButton;
+
+    void S_ConnectToServerButtonClick();
 public:
-    HomeView();
+    HomeView(ProgramWindow* window);
 };
 
 

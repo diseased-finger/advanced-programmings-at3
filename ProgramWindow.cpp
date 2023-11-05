@@ -7,9 +7,9 @@
 #include "views/ConnectToServerView.h"
 
 ProgramWindow::ProgramWindow() {
-    homeView = new HomeView();
+    homeView = new HomeView(this);
     connectToServerBox = new ConnectToServerView(this);
-    RouteToConnectToServerView();
+    RouteToHomeView();
 }
 
 void ProgramWindow::RouteToHomeView() {
