@@ -8,7 +8,7 @@
 
 ProgramWindow::ProgramWindow() {
     homeView = new HomeView();
-    connectToServerBox = new ConnectToServerView();
+    connectToServerBox = new ConnectToServerView(this);
     RouteToConnectToServerView();
 }
 

@@ -9,9 +9,12 @@
 #include <gtkmm/box.h>
 #include <gtkmm/label.h>
 #include <gtkmm/button.h>
+#include "../ProgramWindow.h"
 
 class HomeView : public Gtk::Box {
 private:
+    ProgramWindow* window;
+
     Gtk::Label w_label;
     Gtk::Button w_connectToServerButton;
     Gtk::Button w_createServerButton;
