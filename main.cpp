@@ -1,7 +1,5 @@
 #include <iostream>
-#include "views/ProgramWindow.h"
-#include "routing/RouteManager.h"
-#include "views/MainView.h"
+#include "ProgramWindow.h"
 #include <gtkmm.h>
 
 int main(int argc, char **argv) {

@@ -1,21 +1,26 @@
 //
-// Created by jedsaxon on 2/11/23.
+// Created by jedsaxon on 6/11/23.
 //
 
 #ifndef ADVANCED_PROGRAMMINGS_AT3_PROGRAMWINDOW_H
 #define ADVANCED_PROGRAMMINGS_AT3_PROGRAMWINDOW_H
 
-#include <gtkmm/button.h>
+
 #include <gtkmm/window.h>
+
 #include <gtkmm/box.h>
-#include "../routing/RouteManager.h"
+#include <gtkmm/button.h>
+#include <gtkmm/label.h>
 
 class ProgramWindow : public Gtk::Window {
+private:
+    Gtk::Box w_box;
+    Gtk::Label w_label;
+    Gtk::Button w_connectToServerButton;
+    Gtk::Button w_createServerButton;
 public:
-    explicit ProgramWindow();
-protected:
-    RouteManager* router;
-    void Load(std::string routeName);
+    ProgramWindow();
 };
+
 
 #endif //ADVANCED_PROGRAMMINGS_AT3_PROGRAMWINDOW_H
