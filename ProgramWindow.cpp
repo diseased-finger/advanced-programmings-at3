@@ -4,12 +4,18 @@
 
 #include "ProgramWindow.h"
 #include "views/HomeView.h"
+#include "views/ConnectToServerView.h"
 
 ProgramWindow::ProgramWindow() {
-    RouteToHomeView();
+    homeView = new HomeView();
+    connectToServerBox = new ConnectToServerView();
+    RouteToConnectToServerView();
 }
 
 void ProgramWindow::RouteToHomeView() {
-    Gtk::Box box = HomeView();
-    set_child(box);
+    set_child(*homeView);
+}
+
+void ProgramWindow::RouteToConnectToServerView() {
+    set_child(*connectToServerBox);
 }

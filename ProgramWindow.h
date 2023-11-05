@@ -14,9 +14,13 @@
 
 class ProgramWindow : public Gtk::Window {
 private:
+    Gtk::Box* homeView;
+    Gtk::Box* connectToServerBox;
 public:
     ProgramWindow();
     void RouteToHomeView();
+
+    void RouteToConnectToServerView();
 };
 
 
