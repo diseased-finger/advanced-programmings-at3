@@ -14,12 +14,9 @@
 
 class ProgramWindow : public Gtk::Window {
 private:
-    Gtk::Box w_box;
-    Gtk::Label w_label;
-    Gtk::Button w_connectToServerButton;
-    Gtk::Button w_createServerButton;
 public:
     ProgramWindow();
+    void RouteToHomeView();
 };
 
 

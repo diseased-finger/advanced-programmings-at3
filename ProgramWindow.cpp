@@ -3,18 +3,13 @@
 //
 
 #include "ProgramWindow.h"
+#include "views/HomeView.h"
 
 ProgramWindow::ProgramWindow() {
-    // Insert Widgets
-    w_box = Gtk::Box();
-    set_child(w_box);
+    RouteToHomeView();
+}
 
-    w_label = Gtk::Label("Test");
-    w_box.append(w_label);
-
-    w_connectToServerButton = Gtk::Button("Connect To Server");
-    w_box.append(w_connectToServerButton);
-
-    w_createServerButton = Gtk::Button("Create Server");
-    w_box.append(w_createServerButton);
+void ProgramWindow::RouteToHomeView() {
+    Gtk::Box box = HomeView();
+    set_child(box);
 }

@@ -17,6 +17,8 @@ add_executable(advanced-programmings-at3 main.cpp
         ProgramWindow.cpp
         ProgramWindow.h
         ProgramWindow.h
+        views/HomeView.cpp
+        views/HomeView.h
 )
 
 # Then link GTKMM4 libraries
