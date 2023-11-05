@@ -20,6 +20,7 @@ private:
     Gtk::Button w_createServerButton;
 
     void S_ConnectToServerButtonClick();
+    void S_CreateServerButtonClick();
 public:
     HomeView(ProgramWindow* window);
 };

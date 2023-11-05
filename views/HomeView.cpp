@@ -16,9 +16,14 @@ HomeView::HomeView(ProgramWindow* window) {
     append(w_connectToServerButton);
 
     w_createServerButton = Gtk::Button("Create Server");
+    w_createServerButton.signal_clicked().connect(sigc::mem_fun(*this, &HomeView::S_CreateServerButtonClick));
     append(w_createServerButton);
 }
 
 void HomeView::S_ConnectToServerButtonClick() {
     window->RouteToConnectToServerView();
+}
+
+void HomeView::S_CreateServerButtonClick() {
+    window->RouteToServerInterfaceView();
 }

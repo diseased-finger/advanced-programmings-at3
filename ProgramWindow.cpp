@@ -6,11 +6,13 @@
 #include "views/HomeView.h"
 #include "views/ConnectToServerView.h"
 #include "views/ServerInterfaceView.h"
+#include "views/ClientInterfaceView.h"
 
 ProgramWindow::ProgramWindow() {
     homeView = new HomeView(this);
-    connectToServerBox = new ConnectToServerView(this);
+    connectToServerView = new ConnectToServerView(this);
     serverInterfaceView = new ServerInterfaceView(this);
+    clientInterfaceView = new ClientInterfaceView(this);
     RouteToHomeView();
 }
 
@@ -19,13 +21,13 @@ void ProgramWindow::RouteToHomeView() {
 }
 
 void ProgramWindow::RouteToConnectToServerView() {
-    set_child(*connectToServerBox);
+    set_child(*connectToServerView);
 }
 
 void ProgramWindow::RouteToServerInterfaceView() {
-
+    set_child(*serverInterfaceView);
 }
 
 void ProgramWindow::RouteToClientInterfaceView() {
-
+    set_child(*clientInterfaceView);
 }
