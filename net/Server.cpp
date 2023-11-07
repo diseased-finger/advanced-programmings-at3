@@ -28,7 +28,7 @@ void Server::Initialise(bool log) {
     address.sin_port = port;
 
     int bindResult = bind(
-            server_fd,
+            serverFd,
             (struct sockaddr *) &address,
             sizeof(address)
     );
