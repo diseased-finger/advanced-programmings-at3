@@ -3,6 +3,7 @@
 //
 
 #include "Server.h"
+#include "exceptions/ListenError.h"
 
 Server::Server(int _port) :
     port(_port) {
@@ -39,8 +40,12 @@ void Server::Initialise(bool log) {
         printf("Server: Bound socket to address. Ready to listen\n");
 }
 
-void Server::Serve() {
-
+void Server::Serve(bool log) {
+    int listenResult = listen(serverFd, 3);
+    if (listenResult < 0)
+        throw ListenError("Was unable to listen as server");
+    else if (log)
+        printf("Server: Listening on port: %i", port);
 }
 
 Server::~Server() {

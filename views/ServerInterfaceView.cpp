@@ -5,6 +5,7 @@
 #include <gtkmm/singleselection.h>
 #include "ServerInterfaceView.h"
 #include "../net/Server.h"
+#include "../net/exceptions/ListenError.h"
 
 ServerInterfaceView::ServerInterfaceView(ProgramWindow *window) {
     set_orientation(Gtk::Orientation::VERTICAL);
@@ -32,7 +33,20 @@ ServerInterfaceView::ServerInterfaceView(ProgramWindow *window) {
 
     // Create Server listening on port 10,000
     Server* s = new Server(10000);
-    s->Initialise(true);
+
+    try {
+        s->Initialise(true);
+    } catch (SocketError e) {
+        printf("Error: %s", e.GetMessage());
+        return;
+    }
+
+    try {
+        s->Serve(true);
+    } catch (ListenError e) {
+        printf("Error: %s", e.GetMessage());
+        return;
+    }
 }
 
 void ServerInterfaceView::S_GoBackButtonClick() {

@@ -20,7 +20,7 @@ public:
     Server(int _port);
     ~Server();
     void Initialise(bool log = false);
-    void Serve();
+    void Serve(bool log = false);
 };
 
 
