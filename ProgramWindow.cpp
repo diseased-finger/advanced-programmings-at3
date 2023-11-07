@@ -9,30 +9,30 @@
 #include "views/ClientInterfaceView.h"
 
 ProgramWindow::ProgramWindow() {
-    RouteToHomeView();
+    NavigateToHomeView();
 }
 
-void ProgramWindow::RouteToHomeView() {
+void ProgramWindow::NavigateToHomeView() {
     homeView = new HomeView(this);
-    RouteTo(homeView);
+    NavigateTo(homeView);
 }
 
-void ProgramWindow::RouteToConnectToServerView() {
+void ProgramWindow::NavigateToConnectToServerView() {
     connectToServerView = new ConnectToServerView(this);
-    RouteTo(connectToServerView);
+    NavigateTo(connectToServerView);
 }
 
-void ProgramWindow::RouteToServerInterfaceView() {
+void ProgramWindow::NavigateToServerInterfaceView() {
     serverInterfaceView = new ServerInterfaceView(this);
-    RouteTo(serverInterfaceView);
+    NavigateTo(serverInterfaceView);
 }
 
-void ProgramWindow::RouteToClientInterfaceView() {
+void ProgramWindow::NavigateToClientInterfaceView() {
     clientInterfaceView = new ClientInterfaceView(this);
-    RouteTo(clientInterfaceView);
+    NavigateTo(clientInterfaceView);
 }
 
-void ProgramWindow::RouteTo(Gtk::Box *b) {
+void ProgramWindow::NavigateTo(Gtk::Box *b) {
     if (current != nullptr && current != b)
     {
         unset_child();

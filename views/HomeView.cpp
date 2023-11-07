@@ -21,9 +21,9 @@ HomeView::HomeView(ProgramWindow* window) {
 }
 
 void HomeView::S_ConnectToServerButtonClick() {
-    window->RouteToConnectToServerView();
+    window->NavigateToConnectToServerView();
 }
 
 void HomeView::S_CreateServerButtonClick() {
-    window->RouteToServerInterfaceView();
+    window->NavigateToServerInterfaceView();
 }

@@ -66,7 +66,7 @@ void ServerInterfaceView::StopServer() {
 }
 
 void ServerInterfaceView::S_GoBackButtonClick() {
-    this->window->RouteToHomeView();
+    this->window->NavigateToHomeView();
 }
 
 void ServerInterfaceView::S_AppendTextButton() {

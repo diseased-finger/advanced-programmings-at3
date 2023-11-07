@@ -45,5 +45,5 @@ ConnectToServerView::ConnectToServerView(ProgramWindow* window) {
 
 void ConnectToServerView::S_ConnectButtonPress() {
     printf("Test");
-    window->RouteToHomeView();
+    window->NavigateToHomeView();
 }

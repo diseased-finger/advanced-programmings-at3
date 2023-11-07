@@ -19,13 +19,13 @@ private:
     Gtk::Box* connectToServerView{};
     Gtk::Box* clientInterfaceView{};
     Gtk::Box* serverInterfaceView{};
-    void RouteTo(Gtk::Box* b);
+    void NavigateTo(Gtk::Box* b);
 public:
     ProgramWindow();
-    void RouteToHomeView();
-    void RouteToServerInterfaceView();
-    void RouteToClientInterfaceView();
-    void RouteToConnectToServerView();
+    void NavigateToHomeView();
+    void NavigateToServerInterfaceView();
+    void NavigateToClientInterfaceView();
+    void NavigateToConnectToServerView();
 };
 
 
