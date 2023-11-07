@@ -7,7 +7,17 @@
 #include "../net/Server.h"
 #include "../net/exceptions/ListenError.h"
 
-ServerInterfaceView::ServerInterfaceView(ProgramWindow *window) {
+ServerInterfaceView::ServerInterfaceView(ProgramWindow *_window) : window(_window) {
+    ConstructUI();
+    StartServer();
+}
+
+ServerInterfaceView::~ServerInterfaceView() {
+    StopServer();
+    delete server;
+}
+
+void ServerInterfaceView::ConstructUI() {
     set_orientation(Gtk::Orientation::VERTICAL);
 
     // Create Back/Append Buttons
@@ -18,7 +28,7 @@ ServerInterfaceView::ServerInterfaceView(ProgramWindow *window) {
     appendItemButton.signal_clicked().connect(sigc::mem_fun(*this, &ServerInterfaceView::S_AppendTextButton));
 
     // Create Messages Scrolled View
-    messagesList = new Gtk::Box();
+    messagesList = new Box();
     messagesList->set_orientation(Gtk::Orientation::VERTICAL);
 
     messagesScrollView = new Gtk::ScrolledWindow();
@@ -29,24 +39,30 @@ ServerInterfaceView::ServerInterfaceView(ProgramWindow *window) {
     append(appendItemButton);
     append(*messagesScrollView);
 
-    this->window = window;
+    ServerInterfaceView::window = window;
+}
 
-    // Create Server listening on port 10,000
-    Server* s = new Server(10000);
+void ServerInterfaceView::StartServer() {
+    printf("Hi\n");
+    server = new Server(10000);
 
     try {
-        s->Initialise(true);
+        server->Initialise(true);
     } catch (SocketError e) {
         printf("Error: %s", e.GetMessage());
         return;
     }
 
     try {
-        s->Serve(true);
+        server->Serve(true);
     } catch (ListenError e) {
         printf("Error: %s", e.GetMessage());
         return;
     }
+}
+
+void ServerInterfaceView::StopServer() {
+    server->Stop();
 }
 
 void ServerInterfaceView::S_GoBackButtonClick() {

@@ -21,6 +21,8 @@ public:
     ~Server();
     void Initialise(bool log = false);
     void Serve(bool log = false);
+
+    void Stop();
 };
 
 

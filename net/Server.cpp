@@ -7,11 +7,12 @@
 
 Server::Server(int _port) :
     port(_port) {
-
 }
 
 /// Creates the server to be ready to serve
 void Server::Initialise(bool log) {
+
+
     int opt = 1;
 
     // -- Create the socket --
@@ -45,9 +46,13 @@ void Server::Serve(bool log) {
     if (listenResult < 0)
         throw ListenError("Was unable to listen as server");
     else if (log)
-        printf("Server: Listening on port: %i", port);
+        printf("Server: Listening on port: %i\n", port);
 }
 
 Server::~Server() {
 
+}
+
+void Server::Stop() {
+    printf("Server: Stopping Server\n");
 }
