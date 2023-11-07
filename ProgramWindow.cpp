@@ -13,42 +13,37 @@ ProgramWindow::ProgramWindow() {
 }
 
 void ProgramWindow::RouteToHomeView() {
-    if (get_child())
-        delete get_child();
-
-    if (homeView == nullptr)
-        homeView = new HomeView(this);
-
-    set_child(*homeView);
-    homeView->show();
+    homeView = new HomeView(this);
+    RouteTo(homeView);
 }
 
 void ProgramWindow::RouteToConnectToServerView() {
-    if (get_child())
-        delete get_child();
-
-    if (connectToServerView == nullptr)
-        connectToServerView = new ConnectToServerView(this);
-
-    set_child(*connectToServerView);
+    connectToServerView = new ConnectToServerView(this);
+    RouteTo(connectToServerView);
 }
 
 void ProgramWindow::RouteToServerInterfaceView() {
-    if (get_child())
-        delete get_child();
-
-    if (serverInterfaceView == nullptr)
-        serverInterfaceView = new ServerInterfaceView(this);
-
-    set_child(*serverInterfaceView);
+    serverInterfaceView = new ServerInterfaceView(this);
+    RouteTo(serverInterfaceView);
 }
 
 void ProgramWindow::RouteToClientInterfaceView() {
-    if (get_child())
-        delete get_child();
+    clientInterfaceView = new ClientInterfaceView(this);
+    RouteTo(clientInterfaceView);
+}
 
-    if (clientInterfaceView == nullptr)
-        clientInterfaceView = new ClientInterfaceView(this);
+void ProgramWindow::RouteTo(Gtk::Box *b) {
+    if (current != nullptr && current != b)
+    {
+        unset_child();
+        delete current;
+    }
 
-    set_child(*clientInterfaceView);
+    if (current == b) {
+        printf("Same View. Not Changing\n");
+    }
+
+    set_child(*b);
+    b->show();
+    current = b;
 }
