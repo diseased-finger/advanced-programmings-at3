@@ -4,6 +4,7 @@
 
 #include <gtkmm/singleselection.h>
 #include "ServerInterfaceView.h"
+#include "../net/Server.h"
 
 ServerInterfaceView::ServerInterfaceView(ProgramWindow *window) {
     set_orientation(Gtk::Orientation::VERTICAL);
@@ -28,6 +29,10 @@ ServerInterfaceView::ServerInterfaceView(ProgramWindow *window) {
     append(*messagesScrollView);
 
     this->window = window;
+
+    // Create Server listening on port 10,000
+    Server* s = new Server(10000);
+    s->Initialise(true);
 }
 
 void ServerInterfaceView::S_GoBackButtonClick() {

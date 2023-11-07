@@ -25,6 +25,10 @@ add_executable(advanced-programmings-at3 main.cpp
         views/ClientInterfaceView.h
         views/ServerInterfaceView.cpp
         views/ServerInterfaceView.h
+        net/Server.cpp
+        net/Server.h
+        net/exceptions/SocketError.h
+        net/exceptions/ListenError.h
 )
 
 # Then link GTKMM4 libraries
