@@ -19,8 +19,6 @@ add_executable(advanced-programmings-at3 main.cpp
         ProgramWindow.h
         views/HomeView.cpp
         views/HomeView.h
-        views/ConnectToServerView.cpp
-        views/ConnectToServerView.h
         views/ClientInterfaceView.cpp
         views/ClientInterfaceView.h
         views/ServerInterfaceView.cpp

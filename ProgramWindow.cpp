@@ -4,9 +4,8 @@
 
 #include "ProgramWindow.h"
 #include "views/HomeView.h"
-#include "views/ConnectToServerView.h"
-#include "views/ServerInterfaceView.h"
 #include "views/ClientInterfaceView.h"
+#include "views/ServerInterfaceView.h"
 
 ProgramWindow::ProgramWindow() {
     NavigateToHomeView();
@@ -18,18 +17,13 @@ void ProgramWindow::NavigateToHomeView() {
 }
 
 void ProgramWindow::NavigateToConnectToServerView() {
-    connectToServerView = new ConnectToServerView(this);
+    connectToServerView = new ClientInterfaceView(this);
     NavigateTo(connectToServerView);
 }
 
 void ProgramWindow::NavigateToServerInterfaceView() {
     serverInterfaceView = new ServerInterfaceView(this);
     NavigateTo(serverInterfaceView);
-}
-
-void ProgramWindow::NavigateToClientInterfaceView() {
-    clientInterfaceView = new ClientInterfaceView(this);
-    NavigateTo(clientInterfaceView);
 }
 
 void ProgramWindow::NavigateTo(Gtk::Box *b) {
