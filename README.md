@@ -5,7 +5,7 @@
 Here are some things that you should probably need to know when writing net code (networking code), so that when you go
 to view mine, you won't be overwhelmed. 
 
-### File descriptions
+### File Descriptors
 
 - A file descriptor is a number that points to a file. 
 - If you find the process id for the code that is created when 
