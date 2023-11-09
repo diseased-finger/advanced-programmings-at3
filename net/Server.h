@@ -22,6 +22,9 @@ public:
     void Initialise(bool log = false);
     void Serve(bool log = false);
 
+    /// Waits for a response in another thread for performance reasons
+    void WaitForResponse();
+
     void Stop();
 };
 

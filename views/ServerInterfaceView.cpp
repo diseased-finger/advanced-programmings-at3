@@ -49,14 +49,14 @@ void ServerInterfaceView::StartServer() {
     try {
         server->Initialise(true);
     } catch (SocketError e) {
-        printf("Error: %s", e.GetMessage());
+        printf("Error During Init: %s\n", e.GetMessage().c_str());
         return;
     }
 
     try {
         server->Serve(true);
     } catch (ListenError e) {
-        printf("Error: %s", e.GetMessage());
+        printf("Error During Serve: %s\n", e.GetMessage().c_str());
         return;
     }
 }

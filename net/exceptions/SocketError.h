@@ -14,7 +14,7 @@ private:
     std::string msg;
 public:
     explicit SocketError(std::string _msg) : msg(std::move(_msg)) { };
-    std::string* GetMessage() { return &msg; }
+    std::string GetMessage() { return msg; }
 };
 
 #endif //ADVANCED_PROGRAMMINGS_AT3_SOCKETERROR_H
