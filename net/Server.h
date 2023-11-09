@@ -22,9 +22,11 @@ public:
     void Serve(bool log = false);
 
     /// Waits for a response in another thread for performance reasons
-    void WaitForResponse();
+    void Listen(int serverFileDescriptor, bool log = false);
 
     void Stop();
+
+    int CreateSocket(bool log);
 };
 
 

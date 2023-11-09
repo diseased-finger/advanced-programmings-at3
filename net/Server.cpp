@@ -3,6 +3,7 @@
 //
 
 #include <csignal>
+#include <thread>
 #include "Server.h"
 #include "exceptions/ListenError.h"
 
@@ -13,9 +14,18 @@ Server::Server(int _port) :
     address.sin_port = port;
 }
 
+Server::~Server() {
+
+}
+
 void Server::Serve(bool log) {
     int opt = 1;
 
+    int serverFileDescriptor = CreateSocket(log);
+    Listen(serverFileDescriptor, log);
+}
+
+int Server::CreateSocket(bool log) {
     // -- Create the socket --
     int serverFileDescriptor = socket(AF_INET, SOCK_STREAM, 0);
     if (serverFileDescriptor < 0) {
@@ -35,7 +45,14 @@ void Server::Serve(bool log) {
         throw SocketError("Unable to bind socket to address");
     else if (log)
         printf("Server: Bound socket to address. Ready to listen\n");
+    return serverFileDescriptor;
+}
 
+void Server::Stop() {
+    printf("Server: Stopping Server\n");
+}
+
+void Server::Listen(int serverFileDescriptor, bool log) {
     char buffer[1024] = { 0 };
 
     int listenResult = listen(serverFileDescriptor, 3);
@@ -120,12 +137,4 @@ void Server::Serve(bool log) {
 
     close(acceptResult);
     close(serverFileDescriptor);
-}
-
-Server::~Server() {
-
-}
-
-void Server::Stop() {
-    printf("Server: Stopping Server\n");
 }
