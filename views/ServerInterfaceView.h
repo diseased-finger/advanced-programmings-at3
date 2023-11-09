@@ -18,20 +18,32 @@ private:
     Server* server;
 
     ProgramWindow* window;
+
     Gtk::ScrolledWindow* messagesScrollView;
+
+    Gtk::Box* buttonsBox;
+
+    Gtk::Button* backButton;
+
+    Gtk::Button* appendItemButton;
+
+    Gtk::Button* listenButton;
+
     Gtk::Box* messagesList;
 public:
     explicit ServerInterfaceView(ProgramWindow* _window);
-    ~ServerInterfaceView();
 
-    void S_GoBackButtonClick();
-    void S_AppendTextButton();
-
-    void StartServer();
+    ~ServerInterfaceView() override;
 
     void StopServer();
 
     void ConstructUI();
+
+    void S_GoBackButtonClick();
+
+    void S_AppendTextButton();
+
+    void S_ListenButtonClicked();
 };
 
 

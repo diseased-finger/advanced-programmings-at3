@@ -2,30 +2,36 @@
 // Created by jedsaxon on 6/11/23.
 //
 
-#include <gtkmm/singleselection.h>
+
 #include "ServerInterfaceView.h"
-#include "../net/Server.h"
-#include "../net/exceptions/ListenError.h"
 
 ServerInterfaceView::ServerInterfaceView(ProgramWindow *_window) : window(_window) {
     ConstructUI();
-    StartServer();
 }
 
 ServerInterfaceView::~ServerInterfaceView() {
     StopServer();
-    delete server;
 }
 
 void ServerInterfaceView::ConstructUI() {
     set_orientation(Gtk::Orientation::VERTICAL);
 
-    // Create Back/Append Buttons
-    Gtk::Button backButton = Gtk::Button("Go Back");
-    backButton.signal_clicked().connect(sigc::mem_fun(*this, &ServerInterfaceView::S_GoBackButtonClick));
+    buttonsBox = new Gtk::Box();
+    buttonsBox->set_orientation(Gtk::Orientation::HORIZONTAL);
 
-    Gtk::Button appendItemButton = Gtk::Button("Add Something");
-    appendItemButton.signal_clicked().connect(sigc::mem_fun(*this, &ServerInterfaceView::S_AppendTextButton));
+    // Create Back/Append Buttons
+    backButton = new Gtk::Button("Go Back");
+    backButton->signal_clicked().connect(sigc::mem_fun(*this, &ServerInterfaceView::S_GoBackButtonClick));
+
+    appendItemButton = new Gtk::Button("Add Something");
+    appendItemButton->signal_clicked().connect(sigc::mem_fun(*this, &ServerInterfaceView::S_AppendTextButton));
+
+    listenButton = new Gtk::Button("Listen for requests (will freeze app)");
+    listenButton->signal_clicked().connect(sigc::mem_fun(*this, &ServerInterfaceView::S_ListenButtonClicked));
+
+    buttonsBox->append(*backButton);
+    buttonsBox->append(*appendItemButton);
+    buttonsBox->append(*listenButton);
 
     // Create Messages Scrolled View
     messagesList = new Box();
@@ -35,23 +41,10 @@ void ServerInterfaceView::ConstructUI() {
     messagesScrollView->set_child(*messagesList);
     messagesScrollView->set_min_content_height(50);
 
-    append(backButton);
-    append(appendItemButton);
+    append(*buttonsBox);
     append(*messagesScrollView);
 
     ServerInterfaceView::window = window;
-}
-
-void ServerInterfaceView::StartServer() {
-    printf("Hi\n");
-    server = new Server(10000);
-
-    try {
-        server->Serve(true);
-    } catch (ListenError e) {
-        printf("Error During Serve: %s\n", e.GetMessage().c_str());
-        return;
-    }
 }
 
 void ServerInterfaceView::StopServer() {
@@ -63,6 +56,19 @@ void ServerInterfaceView::S_GoBackButtonClick() {
 }
 
 void ServerInterfaceView::S_AppendTextButton() {
-    Gtk::Label l = Gtk::Label("Something");
+    Gtk::Label l = Gtk::Label("[Test] Something");
+    messagesList->append(l);
+}
+
+void ServerInterfaceView::S_ListenButtonClicked() {
+    std::string str = server->Serve(true);
+
+    if (std::empty(str)) {
+        str = "[Empty Message]";
+    } else {
+        str = "[Message from Client] " + str;
+    }
+
+    Gtk::Label l = Gtk::Label(str);
     messagesList->append(l);
 }

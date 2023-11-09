@@ -2,30 +2,16 @@
 // Created by jedsaxon on 7/11/23.
 //
 
-#include <csignal>
-#include <thread>
+#include <future>
+#include <sstream>
 #include "Server.h"
-#include "exceptions/ListenError.h"
 
-Server::Server(int _port) :
-    port(_port) {
+std::string Server::Serve(bool log) {
+    struct sockaddr_in address;
     address.sin_family = AF_INET; // Define protocol as INET (ipv4. Eg: 127.0.0.1)
     address.sin_addr.s_addr = INADDR_ANY; // Say that any address can be used to communicate with socket
-    address.sin_port = port;
-}
+    address.sin_port = 10000;
 
-Server::~Server() {
-
-}
-
-void Server::Serve(bool log) {
-    int opt = 1;
-
-    int serverFileDescriptor = CreateSocket(log);
-    Listen(serverFileDescriptor, log);
-}
-
-int Server::CreateSocket(bool log) {
     // -- Create the socket --
     int serverFileDescriptor = socket(AF_INET, SOCK_STREAM, 0);
     if (serverFileDescriptor < 0) {
@@ -45,21 +31,16 @@ int Server::CreateSocket(bool log) {
         throw SocketError("Unable to bind socket to address");
     else if (log)
         printf("Server: Bound socket to address. Ready to listen\n");
-    return serverFileDescriptor;
-}
 
-void Server::Stop() {
-    printf("Server: Stopping Server\n");
-}
+    // -- Listen for response ---
 
-void Server::Listen(int serverFileDescriptor, bool log) {
     char buffer[1024] = { 0 };
 
     int listenResult = listen(serverFileDescriptor, 3);
     if (listenResult < 0)
         throw ListenError("Was unable to listen as server");
     else if (log)
-        printf("Server: Listening on port: %i\n", port);
+        printf("Server: Listening on port: %i\n", 10000);
 
     int acceptResult;
     socklen_t addressLength = sizeof(address);
@@ -133,8 +114,16 @@ void Server::Listen(int serverFileDescriptor, bool log) {
     printf("Server: Response Found. Parsing it\n");
 
     ssize_t valueRead = read(acceptResult, buffer, 1024-1);
-    std::cout << "Buffer: " << buffer << std::endl;
+    std::stringstream s;
+    s << buffer;
 
     close(acceptResult);
     close(serverFileDescriptor);
+
+    return s.str();
 }
+
+void Server::Stop() {
+    printf("Server: Stopping Server\n");
+}
+

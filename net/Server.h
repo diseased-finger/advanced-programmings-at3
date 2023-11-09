@@ -11,22 +11,17 @@
 #include <iostream>
 #include <netinet/in.h>
 #include <string>
+#include <csignal>
+#include <thread>
+#include "exceptions/ListenError.h"
+#include "../net/Server.h"
+#include "../net/exceptions/ListenError.h"
 
 class Server {
-private:
-    int port;
-    struct sockaddr_in address;
 public:
-    Server(int _port);
-    ~Server();
-    void Serve(bool log = false);
-
-    /// Waits for a response in another thread for performance reasons
-    void Listen(int serverFileDescriptor, bool log = false);
+    std::string Serve(bool log = false);
 
     void Stop();
-
-    int CreateSocket(bool log);
 };
 
 
