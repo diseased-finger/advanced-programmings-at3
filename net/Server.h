@@ -15,11 +15,10 @@
 class Server {
 private:
     int port;
-    int serverFd;
+    struct sockaddr_in address;
 public:
     Server(int _port);
     ~Server();
-    void Initialise(bool log = false);
     void Serve(bool log = false);
 
     /// Waits for a response in another thread for performance reasons

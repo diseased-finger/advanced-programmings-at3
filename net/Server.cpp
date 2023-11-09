@@ -8,28 +8,34 @@
 
 Server::Server(int _port) :
     port(_port) {
+    address.sin_family = AF_INET; // Define protocol as INET (ipv4. Eg: 127.0.0.1)
+    address.sin_addr.s_addr = INADDR_ANY; // Say that any address can be used to communicate with socket
+    address.sin_port = port;
 }
 
-/// Creates the server to be ready to serve
-void Server::Initialise(bool log) {
+void Server::Serve(bool log) {
     int opt = 1;
 
     // -- Create the socket --
-    serverFd = socket(AF_INET, SOCK_STREAM, 0);
-    if (serverFd < 0) {
+
+    // A file descriptor is a number that points to a file table. If you find the process id for the task running, you
+    // can actually find the file in /proc/<proc id>/fd. This file is a random, unique number that is created by Linux
+    // or whatever OS that links said number to a file. In this case, we are creating a file which will store the
+    // retrieved request into /proc, that is why it returns an integer inside the socket() call. If you understand this,
+    // I recomend you read the man pages for `socket(2)`, `bind(2)`, `listen(2)`, `accept(2)`, and `close()`
+
+
+    int serverFileDescriptor = socket(AF_INET, SOCK_STREAM, 0);
+    if (serverFileDescriptor < 0) {
         throw SocketError("Socket was unable to be created");;
     }
     else if (log)
         printf("Server: Socket Created\n");
 
     // -- Bind socket to address --
-    struct sockaddr_in address;
-    address.sin_family = AF_INET; // Define protocol as INET (ipv4. Eg: 127.0.0.1)
-    address.sin_addr.s_addr = INADDR_ANY; // Say that any address can be used to communicate with socket
-    address.sin_port = port;
 
     int bindResult = bind(
-            serverFd,
+            serverFileDescriptor,
             (struct sockaddr*)&address,
             sizeof(address)
     );
@@ -38,26 +44,19 @@ void Server::Initialise(bool log) {
         throw SocketError("Unable to bind socket to address");
     else if (log)
         printf("Server: Bound socket to address. Ready to listen\n");
-}
 
-void Server::Serve(bool log) {
     char buffer[1024] = { 0 };
 
-    int listenResult = listen(serverFd, 3);
+    int listenResult = listen(serverFileDescriptor, 3);
     if (listenResult < 0)
         throw ListenError("Was unable to listen as server");
     else if (log)
         printf("Server: Listening on port: %i\n", port);
 
-    struct sockaddr_in address;
-    address.sin_family = AF_INET; // Define protocol as INET (ipv4. Eg: 127.0.0.1)
-    address.sin_addr.s_addr = INADDR_ANY; // Say that any address can be used to communicate with socket
-    address.sin_port = port;
-
     int acceptResult;
     socklen_t addressLength = sizeof(address);
     acceptResult = accept(
-            serverFd,
+            serverFileDescriptor,
             (struct sockaddr*)&address,
             &addressLength);
     if (acceptResult < 0) {
@@ -129,7 +128,7 @@ void Server::Serve(bool log) {
     std::cout << "Buffer: " << buffer << std::endl;
 
     close(acceptResult);
-    close(serverFd);
+    close(serverFileDescriptor);
 }
 
 Server::~Server() {

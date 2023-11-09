@@ -47,13 +47,6 @@ void ServerInterfaceView::StartServer() {
     server = new Server(10000);
 
     try {
-        server->Initialise(true);
-    } catch (SocketError e) {
-        printf("Error During Init: %s\n", e.GetMessage().c_str());
-        return;
-    }
-
-    try {
         server->Serve(true);
     } catch (ListenError e) {
         printf("Error During Serve: %s\n", e.GetMessage().c_str());
