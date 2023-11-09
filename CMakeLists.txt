@@ -29,6 +29,7 @@ add_executable(advanced-programmings-at3 main.cpp
         net/exceptions/ListenError.h
         net/Client.cpp
         net/Client.h
+        net/exceptions/GeneralNetError.h
 )
 
 # Then link GTKMM4 libraries

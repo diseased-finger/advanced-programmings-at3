@@ -17,6 +17,7 @@ private:
     ProgramWindow* window;
 
     Gtk::Label w_header;
+    Gtk::Label* w_notificationMsg;
 
     Gtk::Box w_serverHostNameBox;
     Gtk::Label w_serverHostNameLabel;
@@ -26,8 +27,11 @@ private:
     Gtk::Label w_serverPortLabel;
     Gtk::Entry* w_serverPortEntry;
 
+    Gtk::Box w_msgBox;
+    Gtk::Entry* w_msgEntry;
+    Gtk::Button w_sendButton;
+
     Gtk::Button* w_goBackButton;
-    Gtk::Button* w_connectButton;
 public:
     explicit ClientInterfaceView(ProgramWindow* window);
     void S_GoBackButtonPress();
