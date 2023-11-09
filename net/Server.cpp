@@ -17,14 +17,6 @@ void Server::Serve(bool log) {
     int opt = 1;
 
     // -- Create the socket --
-
-    // A file descriptor is a number that points to a file table. If you find the process id for the task running, you
-    // can actually find the file in /proc/<proc id>/fd. This file is a random, unique number that is created by Linux
-    // or whatever OS that links said number to a file. In this case, we are creating a file which will store the
-    // retrieved request into /proc, that is why it returns an integer inside the socket() call. If you understand this,
-    // I recomend you read the man pages for `socket(2)`, `bind(2)`, `listen(2)`, `accept(2)`, and `close()`
-
-
     int serverFileDescriptor = socket(AF_INET, SOCK_STREAM, 0);
     if (serverFileDescriptor < 0) {
         throw SocketError("Socket was unable to be created");;
@@ -33,7 +25,6 @@ void Server::Serve(bool log) {
         printf("Server: Socket Created\n");
 
     // -- Bind socket to address --
-
     int bindResult = bind(
             serverFileDescriptor,
             (struct sockaddr*)&address,
