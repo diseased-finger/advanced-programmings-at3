@@ -21,6 +21,8 @@ private:
 
     Gtk::ScrolledWindow* messagesScrollView;
 
+    Gtk::Label* msgLabel;
+
     Gtk::Box* buttonsBox;
 
     Gtk::Button* backButton;

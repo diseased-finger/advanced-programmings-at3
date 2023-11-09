@@ -16,6 +16,8 @@ ServerInterfaceView::~ServerInterfaceView() {
 void ServerInterfaceView::ConstructUI() {
     set_orientation(Gtk::Orientation::VERTICAL);
 
+    msgLabel = new Gtk::Label("Nothing");
+
     buttonsBox = new Gtk::Box();
     buttonsBox->set_orientation(Gtk::Orientation::HORIZONTAL);
 
@@ -36,12 +38,14 @@ void ServerInterfaceView::ConstructUI() {
     // Create Messages Scrolled View
     messagesList = new Box();
     messagesList->set_orientation(Gtk::Orientation::VERTICAL);
+    messagesList->set_size_request(-1, 300);
 
     messagesScrollView = new Gtk::ScrolledWindow();
     messagesScrollView->set_child(*messagesList);
     messagesScrollView->set_min_content_height(50);
 
     append(*buttonsBox);
+    append(*msgLabel);
     append(*messagesScrollView);
 
     ServerInterfaceView::window = window;
@@ -61,7 +65,18 @@ void ServerInterfaceView::S_AppendTextButton() {
 }
 
 void ServerInterfaceView::S_ListenButtonClicked() {
-    std::string str = server->Serve(true);
+    msgLabel->set_text("Listening for Messages (window may be unresponsive)");
+    std::string str;
+
+    try {
+        str = server->Serve(true);
+    } catch (ListenError e) {
+        msgLabel->set_text("[Server Error]: " + e.GetMessage());
+        return;
+    } catch (SocketError e) {
+        msgLabel->set_text("[Server Error]: " + e.GetMessage());
+        return;
+    }
 
     if (std::empty(str)) {
         str = "[Empty Message]";

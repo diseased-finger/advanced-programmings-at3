@@ -17,3 +17,16 @@ number to a file.
 returns an integer inside the socket() call. 
 - If you understand this, I recomend you read the man pages for `socket(2)`, 
 `bind(2)`, `listen(2)`, `accept(2)`, and `close()`. This is relevant to `Server::Serve(1)` in `Server.cpp`
+
+### TCP Linger / Time-Wait
+
+- When you open a server, it opens up a port as you know
+- When the application closes, and thus the socket is closed too, the socket "can go into a TIME-WAIT state on the end 
+that initiated the close" - [Lewis Van Winkle](https://handsonnetworkprogramming.com/articles/bind-error-98-eaddrinuse-10048-wsaeaddrinuse-address-already-in-use/)
+- When you use `SO_REUSEADDR` (socket, reuse address), you can pretty much override the old one
+- Example in `Server::Serve(1)`:
+```c++
+int res = 1;
+if (setsockopt(serverFileDescriptor, SOL_SOCKET, SO_REUSEADDR,
+               (void*)&res, sizeof(res)) < 0) { }
+```

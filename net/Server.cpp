@@ -21,14 +21,22 @@ std::string Server::Serve(bool log) {
         printf("Server: Socket Created\n");
 
     // -- Bind socket to address --
+    // Tcp linger fix
+    // Also really shitty looking code
+    int res = 1;
+    if (setsockopt(serverFileDescriptor, SOL_SOCKET, SO_REUSEADDR,
+                   (void*)&res, sizeof(res)) < 0) { }
+
     int bindResult = bind(
             serverFileDescriptor,
             (struct sockaddr*)&address,
             sizeof(address)
     );
 
-    if (bindResult < 0) // If it is equal to 1, success. Otherwise, throw error
+    if (bindResult < 0) { // If it is equal to 1, success. Otherwise, throw error
+        printf("Err: %i\n", errno);
         throw SocketError("Unable to bind socket to address");
+    }
     else if (log)
         printf("Server: Bound socket to address. Ready to listen\n");
 
